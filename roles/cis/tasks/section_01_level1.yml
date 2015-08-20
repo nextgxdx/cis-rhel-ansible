@@ -147,7 +147,7 @@
       - section1.2.1
 
   - name: 1.2.2 Verify Red Hat GPG key is installed (Scored)
-    command: gpg --quiet --with-fingerprint /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release 
+    command: gpg --quiet --with-fingerprint /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
     when: ansible_distribution == "RedHat"
     tags:
       - scored
@@ -179,8 +179,8 @@
       - section1.2
       - section1.2.6
 
-  - name: 1.5.1 Get Absolute Path to grub.conf
-    command: readlink -f /etc/grub.conf
+  - name: 1.5.1 Get Absolute Path to grub_conf
+    command: readlink -f "{{ grub_conf }}"
     register: readlink
     changed_when: false
     always_run: yes
@@ -189,18 +189,18 @@
       - section1.5
       - section1.5.1
 
-  - name: 1.5.1 Set User/Group Owner on /etc/grub.conf (Scored)
+  - name: 1.5.1 Set User/Group Owner on grub_conf (Scored)
     file: >
       path={{ readlink.stdout }}
-      owner=root
-      group=root
+      owner="{{ cis_user }}"
+      group="{{ cis_user }}"
     tags:
       - scored
       - section1.5
       - section1.5.1
 
   - name: 1.5.2 Get Absolute Path to grub.conf
-    command: readlink -f /etc/grub.conf
+    command: readlink -f "{{ grub_conf }}"
     register: readlink
     changed_when: false
     always_run: yes
@@ -214,7 +214,7 @@
       path={{ readlink.stdout }}
       mode=0400
     tags:
-      - scored 
+      - scored
       - section1.5
       - section1.5.2
 

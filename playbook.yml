@@ -16,7 +16,8 @@
 #
 
 - hosts: all
-  accelerate: true
-  user: root
+#  accelerate: true
+  user: "{{ cis_user }}"
+  sudo: yes
   roles:
-    - cis 
+    - cis

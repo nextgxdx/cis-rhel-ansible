@@ -54,8 +54,8 @@
   - name: 9.1.6 Verify User/Group Ownership on /etc/passwd (Scored)
     file: >
       path=/etc/passwd
-      owner=root
-      group=root
+      owner="{{ cis_user }}"
+      group="{{ cis_user }}"
     tags:
       - scored
       - section9.1
@@ -64,8 +64,8 @@
   - name: 9.1.7 Verify User/Group Ownership on /etc/shadow (Scored)
     file: >
       path=/etc/shadow
-      owner=root
-      group=root
+      owner="{{ cis_user }}"
+      group="{{ cis_user }}"
     tags:
       - scored
       - section9.1
@@ -74,8 +74,8 @@
   - name: 9.1.8 Verify User/Group Ownership on /etc/gshadow (Scored)
     file: >
       path=/etc/gshadow
-      owner=root
-      group=root
+      owner="{{ cis_user }}"
+      group="{{ cis_user }}"
     tags:
       - scored
       - section9.1
@@ -84,8 +84,8 @@
   - name: 9.1.9 Verify User/Group Ownership on /etc/group (Scored)
     file: >
       path=/etc/group
-      owner=root
-      group=root
+      owner="{{ cis_user }}"
+      group="{{ cis_user }}"
     tags:
       - scored
       - section9.1

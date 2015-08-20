@@ -16,7 +16,7 @@
 #
 
   - name: Create /etc/modprobe.d/CIS.conf with root ownership & mode
-    file: path=/etc/modprobe.d/CIS.conf state=touch owner=root group=root mode=0600
+    file: path=/etc/modprobe.d/CIS.conf state=touch owner="{{ cis_user }}" group="{{ cis_user }}" mode=0600
     changed_when: false
     tags:
       - notscored
@@ -128,7 +128,7 @@
 
   - name: 1.3.1 Install AIDE (Initialize AIDE) (Scored)
     command: >
-      /usr/sbin/aide --init -B 'database_out=file:/var/lib/aide/aide.db.gz' 
+      /usr/sbin/aide --init -B 'database_out=file:/var/lib/aide/aide.db.gz'
       creates=/var/lib/aide/aide.db.gz
     when: configure_aide
     tags:
@@ -174,7 +174,7 @@
   - name: 1.4.1 Enable SELinux in /etc/grub.conf (Scored)
     lineinfile: >
       state=absent
-      dest=/etc/grub.conf
+      dest="{{ grub_conf }}"
       line="selinux=0"
     tags:
       - scored
@@ -184,7 +184,7 @@
   - name: 1.4.1 Enable SELinux in /etc/grub.conf (Scored)
     lineinfile: >
       state=absent
-      dest=/etc/grub.conf
+      dest="{{ grub_conf }}"
       line="enforcing=0"
     tags:
       - scored

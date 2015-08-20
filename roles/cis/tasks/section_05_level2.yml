@@ -93,7 +93,7 @@
   - name: 5.2.3 Enable Auditing for Processes That Start Prior to auditd (Scored)
     lineinfile: >
       state=present
-      dest=/etc/grub.conf
+      dest="{{ grub_conf }}"
       backrefs=yes
       regexp="(^\s*kernel.*)$(?<!audit=1)"
       line="\1 audit=1"

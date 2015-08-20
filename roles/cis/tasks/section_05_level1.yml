@@ -38,8 +38,8 @@
     copy: >
       src=etc/rsyslog.conf
       dest=/etc/rsyslog.conf
-      owner=root
-      group=root
+      owner="{{ cis_user }}"
+      group="{{ cis_user }}"
       mode=0644
     tags:
       - notscored
@@ -50,7 +50,7 @@
     file: >
       path=/var/log/{{ item }}
       state=touch
-      owner=root
+      owner="{{ cis_user }}"
       group=wheel
       mode=0640
     with_items:

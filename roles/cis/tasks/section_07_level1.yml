@@ -17,8 +17,8 @@
 
   - name: 7.1.1 Set Password Expiration Days (Scored)
     lineinfile: >
-      backup=yes 
-      state=present 
+      backup=yes
+      state=present
       dest=/etc/login.defs
       backrefs=yes
       regexp="^PASS_MAX_DAYS\s+"
@@ -30,8 +30,8 @@
 
   - name: 7.1.2 Set Password Change Minimum Number of Days (Scored)
     lineinfile: >
-      backup=yes 
-      state=present 
+      backup=yes
+      state=present
       dest=/etc/login.defs
       backrefs=yes
       regexp="^PASS_MIN_DAYS\s+"
@@ -43,8 +43,8 @@
 
   - name: 7.1.3 Set Password Expiring Warning Days (Scored)
     lineinfile: >
-      backup=yes 
-      state=present 
+      backup=yes
+      state=present
       dest=/etc/login.defs
       backrefs=yes
       regexp="^PASS_WARN_AGE\s+"
@@ -71,14 +71,14 @@
 
   - name: 7.3 Set Default Group for root Account (Scored)
     user: >
-      name=root
-      group=root
+      name="{{ cis_user }}"
+      group="{{ cis_user }}"
     tags:
       - scored
       - section7.3
 
   - name: 7.4 Set Default umask for Users (Scored)
-    lineinfile: 
+    lineinfile:
       state=present
       create=yes
       dest=/etc/profile.d/cis.sh
@@ -89,16 +89,16 @@
       - section7.4
 
   - name: Ensure that /etc/profile.d/cis.sh has correct owner, group and mode
-    file: 
-      path=/etc/profile.d/cis.sh 
-      owner=root
-      group=root
+    file:
+      path=/etc/profile.d/cis.sh
+      owner="{{ cis_user }}"
+      group="{{ cis_user }}"
       mode=0644
     changed_when: false
     tags:
       - scored
       - section7.4
-      
+
   - name: 7.5 Lock Inactive User Accounts (Scored)
     command: /usr/sbin/useradd -D -f 35
     when: lock_inactive

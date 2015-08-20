@@ -28,10 +28,10 @@
 
   - name: 8.1 Set Warning Banner for Standard Login Services (Scored)
     file: >
-      name=/etc/motd 
+      name=/etc/motd
       state=absent
     changed_when: false
-    with_items: 
+    with_items:
       - stats.results
     when: item.islnk is defined
     tags:
@@ -43,7 +43,7 @@
       name=/etc/issue
       state=absent
     changed_when: false
-    with_items: 
+    with_items:
       - stats.results
     when: item.islnk is defined
     tags:
@@ -55,7 +55,7 @@
       name=/etc/issue.net
       state=absent
     changed_when: false
-    with_items: 
+    with_items:
       - stats.results
     when: item.islnk is defined
     tags:
@@ -77,8 +77,8 @@
   - name: 8.1 Set Warning Banner for Standard Login Services (Scored)
     file: >
       path=/etc/{{ item }}
-      owner=root
-      group=root
+      owner="{{ cis_user }}"
+      group="{{ cis_user }}"
       mode=0644
     with_items:
       - motd
@@ -91,12 +91,12 @@
   - name: 8.2 Remove OS Information from Login Warning Banners (Scored)
     replace: >
       dest=/etc/{{ item }}
-      regexp='\\r|\\v|\\s' 
+      regexp='\\r|\\v|\\s'
       replace='[CIS replaced]'
     with_items:
       - motd
       - issue
-      - issue.net 
+      - issue.net
     tags:
       - scored
       - section8.2
